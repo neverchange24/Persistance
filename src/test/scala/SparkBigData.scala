@@ -72,7 +72,7 @@ object SparkBigData {
       .option("header", "true")
       .schema(schema_order)
       .load("C:\\Users\\Alex\\Documents\\Fichier 2021\\FomaBigData\\Source\\DataFrame\\orders.txt")
-    df_order.printSchema()
+    //df_order.printSchema()
     //df_order.show(5)
 
     val def_oderok = df_order.withColumnRenamed("numunits", "numunits_order")
@@ -143,14 +143,16 @@ object SparkBigData {
         col("zipcode"),
         col("PRODUCTGROUPNAME"),
         col("state"),
-        col("Ventes_dep").alias("Ventes par departement")
-      ).show(10)
+        col("Ventes_dep").alias("Ventes_par_departement")
+      )
+      //.show(10)
 
-        df_window.write
-         .format()
+        df_window.repartition(1)
+          .write
+          .format("com.databricks.spark.csv")
          .mode(SaveMode.Overwrite)
-         .csv()
-          .save("C:\\Users\\Alex\\Documents\\Fichier 2021\\FomaBigData\\Source\\DataFrame\\Ecriture")
+          .option("header", "true")
+          .csv("C:\\Users\\Alex\\Documents\\Fichier 2021\\FomaBigData\\Source\\DataFrame\\Ecriture")
   }
 
 
