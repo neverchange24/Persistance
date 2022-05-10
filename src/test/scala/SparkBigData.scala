@@ -6,6 +6,7 @@ import org.apache.spark.sql.expressions.Window._
 import org.apache.spark.sql.functions._    /*important pour dataframe */
 import org.apache.spark.sql.catalyst.plans._    /*important pour jointure dataframe */
 import org.apache.spark.storage.StorageLevel
+import org.apache.hadoop.fs._
 
 
 /*import java.util.logging.LogManager
@@ -155,6 +156,12 @@ object SparkBigData {
           .csv("C:\\Users\\Alex\\Documents\\Fichier 2021\\FomaBigData\\Source\\DataFrame\\Ecriture")
   }
 
+ /*Créons une fonction*/
+ def spark_hdfs (): Unit = {
+  val conf_fs = Session_Spark( Env = true).sparkContext.hadoopConfiguration
+   val fs = FileSystem.get(conf_fs)
+
+  }
 
 //desc_nulls_first()
 
