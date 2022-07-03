@@ -148,18 +148,58 @@ object SparkBigData {
       )
       //.show(10)
 
-        df_window.repartition(1)
+      /*  df_window.repartition(1)
           .write
           .format("com.databricks.spark.csv")
          .mode(SaveMode.Overwrite)
           .option("header", "true")
           .csv("C:\\Users\\Alex\\Documents\\Fichier 2021\\FomaBigData\\Source\\DataFrame\\Ecriture")
+
+       */
+    // manipulation des dates et temps
+    def_oderok.withColumn("date_lecture",date_format(current_date(),format="dd/MMMM/YYYY h:mm:ss") )
+      .withColumn("date_complete",current_timestamp() )
+      .withColumn("periode_jour", window(col("orderdate"), "5 days"))
+      .select(
+        col("periode_jour"),
+        col("periode_jour.start"),
+        col("periode_jour.end")
+      )
+      //.show(10)
   }
+
+
 
  /*Créons une fonction*/
  def spark_hdfs (): Unit = {
   val conf_fs = Session_Spark( Env = true).sparkContext.hadoopConfiguration
    val fs = FileSystem.get(conf_fs)
+
+   val src_path = new Path("/user/datalake/marketing")
+   val dest_path = new Path("/user/datalake/indexes")
+   val ren_src = new Path("/user/datalake/indexes/fichierreporting.parquet")
+   val dest_src = new Path("/user/datalake/indexes/reporting.parquet")
+   val local_path = new Path("C:\\Users\\Alex\\Documents\\Fichier 2021\\FomaBigData\\Source\\DataFrame\\Ecriture\\parts.csv")
+   val path_local = new Path("C:\\Users\\Alex\\Documents\\Fichier 2021\\FomaBigData\\Source\\DataFrame")
+
+   //lecture des fichiers
+   val files_list = fs.listStatus(src_path)
+   files_list.foreach(f => println(f.getPath))
+
+   val files_list1 = fs.listStatus(src_path).map(x=> x.getPath)
+
+   for (i <- 1 to files_list1.length) {
+     println(files_list1(i))
+   }
+   //renommagede des fichiers
+   fs.rename(ren_src,dest_src)
+
+   //suppression des fichiers dans un dossier
+   fs.delete(dest_src, true)
+   //copie des fichiers
+
+   fs.copyFromLocalFile(local_path, dest_path)
+   fs.copyToLocalFile(dest_path,path_local)
 
   }
 
