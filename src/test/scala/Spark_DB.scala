@@ -1,5 +1,4 @@
 
-
 import SparkBigData._
 import org.apache.spark.sql._               /*important pour dataframe */
 import org.apache.spark.sql.types._        /*important pour dataframe */
@@ -7,7 +6,6 @@ import org.apache.spark.sql.expressions.Window._
 import org.apache.spark.sql.functions._    /*important pour dataframe */
 import org.apache.spark.sql.catalyst.plans._    /*important pour jointure dataframe */
 import java.util._
-
 
 
 object Spark_DB {
@@ -18,16 +16,32 @@ object Spark_DB {
     prop_mysql.put("user","consultant")
     prop_mysql.put("password","pwd#86")
 
-    val df_mysql = ss.read.jdbc("jdbc:127.0.0.1:3306/jd_bb","jd_bb.orders",prop_mysql)
+    val prop_sqlserver = new Properties()
+    prop_sqlserver.put("user","consultant")
+    prop_sqlserver.put("password","pwd#86")
+
+    val df_mysql = ss.read.jdbc("jdbc:mysql://127.0.0.1:3306/jd_bb","jd_bb.orders",prop_mysql)
+    //df_mysql.show(15)
 
     val df_mysql2 = ss.read
       .format("jdbc")
       .option("url", "jdbc:mysql://127.0.0.1:3306")
       .option("user", "consultant")
       .option("password", "pwd#86")  //
-      .option("dbtable", "(select state, city, sum(round(numunits * totalprice)) as commandes_totales from jd_bb.orders group by state, city) table_summary")
+      .option("dbtable", "(select compaignid, state, sum(round(numunits * totalprice)) as commandes_totales from jd_bb.orders group by state) table_summary")
       .load()
 
-    df_mysql2.show(10)
+    //df_mysql2.show(17)
+
+    //val df_sqlserver = ss.read.jdbc("jdbc:sqlserver:// DESKTOP-5Q5TJ5C\\SQLEXPRESS:1433; databaseName=jd_bb","orders",prop_sqlserver)
+
+    val df_sqlserver = ss.read
+      .format("jdbc")
+      .option("driver","com.microsoft.sqlserver.jdbc.SQLServerDriver")
+      .option("url", "jdbc:sqlserver:// DESKTOP-5Q5TJ5C\\\\SQLEXPRESS:11428; databaseName=jd_bb;integrationSecurity=true")
+      .option("dbtable", "orders")
+      .load()
+
+    df_sqlserver.show(17)
   }
 }

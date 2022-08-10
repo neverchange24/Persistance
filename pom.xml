@@ -14,6 +14,7 @@
         <maven.compiler.target>8</maven.compiler.target>
         <mysql.jdbc.driver.version>8.0.29</mysql.jdbc.driver.version>
         <microsoft.sqlserver.jdbc.driver.version>9.2.1.jre8</microsoft.sqlserver.jdbc.driver.version>
+        <hbase.client.version>2.4.13</hbase.client.version>
     </properties>
 
     <dependencies>
@@ -61,6 +62,27 @@
             <artifactId>mssql-jdbc</artifactId>
             <version>${microsoft.sqlserver.jdbc.driver.version}</version>
         </dependency>
+        <!-- https://mvnrepository.com/artifact/com.microsoft.sqlserver/mssql-jdbc -->
+        <dependency>
+            <groupId>com.microsoft.sqlserver</groupId>
+            <artifactId>mssql-jdbc</artifactId>
+            <version>9.2.1.jre8</version>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/org.apache.hbase/hbase-client -->
+        <dependency>
+            <groupId>org.apache.hbase</groupId>
+            <artifactId>hbase-client</artifactId>
+            <version>${hbase.client.version}</version>
+        </dependency>
+
+        <!-- https://mvnrepository.com/artifact/org.apache.hbase.connectors.spark/hbase-spark -->
+        <dependency>
+            <groupId>org.apache.hbase.connectors.spark</groupId>
+            <artifactId>hbase-spark</artifactId>
+            <version>1.0.0</version>
+        </dependency>
+
+
 
 
     </dependencies>
