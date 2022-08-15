@@ -42,6 +42,6 @@ object Spark_DB {
       .option("dbtable", "orders")
       .load()
 
-    df_sqlserver.show(17)
+    //df_sqlserver.show(17)
   }
 }
