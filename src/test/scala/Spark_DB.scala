@@ -6,6 +6,7 @@ import org.apache.spark.sql.expressions.Window._
 import org.apache.spark.sql.functions._    /*important pour dataframe */
 import org.apache.spark.sql.catalyst.plans._    /*important pour jointure dataframe */
 import java.util._
+import org.apache.spark.sql.execution.datasources._
 
 
 object Spark_DB {
@@ -39,9 +40,18 @@ object Spark_DB {
       .format("jdbc")
       .option("driver","com.microsoft.sqlserver.jdbc.SQLServerDriver")
       .option("url", "jdbc:sqlserver:// DESKTOP-5Q5TJ5C\\\\SQLEXPRESS:11428; databaseName=jd_bb;integrationSecurity=true")
+      .option("dbtable", "dbo.orders")
+      .load()
+
+    df_sqlserver.show(17)
+
+    val df_pstsql = ss.read
+      .format("jdbc")
+      .option("driver","com.microsoft.sqlserver.jdbc.SQLServerDriver")
+      .option("url", "jdbc:sqlserver:// DESKTOP-5Q5TJ5C\\SQLEXPRESS:11428; databaseName=jd_bb;integrationSecurity=true")
       .option("dbtable", "orders")
       .load()
 
-    //df_sqlserver.show(17)
+    //df_pstsql.show(17)
   }
 }

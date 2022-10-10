@@ -15,6 +15,7 @@
         <mysql.jdbc.driver.version>8.0.29</mysql.jdbc.driver.version>
         <microsoft.sqlserver.jdbc.driver.version>9.2.1.jre8</microsoft.sqlserver.jdbc.driver.version>
         <hbase.client.version>2.4.13</hbase.client.version>
+        <cassandra.spark.connector.version>2.4.1</cassandra.spark.connector.version>
     </properties>
 
     <dependencies>
@@ -36,6 +37,14 @@
             <artifactId>spark-streaming_2.11</artifactId>
             <version>2.2.0</version>
         </dependency>
+
+        <!-- https://mvnrepository.com/artifact/org.apache.spark/spark-streaming-twitter -->
+        <dependency>
+            <groupId>org.apache.spark</groupId>
+            <artifactId>spark-streaming-twitter_2.11</artifactId>
+            <version>1.6.0</version>
+        </dependency>
+
         <!-- https://mvnrepository.com/artifact/org.scala-lang/scala-library -->
         <dependency>
             <groupId>org.scala-lang</groupId>
@@ -81,7 +90,25 @@
             <version>1.0.0</version>
         </dependency>
 
+        <!-- https://mvnrepository.com/artifact/com.datastax.spark/spark-cassandra-connector -->
+        <dependency>
+            <groupId>com.datastax.spark</groupId>
+            <artifactId>spark-cassandra-connector_2.11</artifactId>
+            <version>${cassandra.spark.connector.version}</version>
+        </dependency>
 
+        <!-- https://mvnrepository.com/artifact/org.apache.logging.log4j/log4j-api -->
+        <dependency>
+            <groupId>org.apache.logging.log4j</groupId>
+            <artifactId>log4j-api</artifactId>
+            <version>2.13.3</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.logging.log4j</groupId>
+            <artifactId>log4j-core</artifactId>
+            <version>2.13.3</version>
+        </dependency>
     </dependencies>
     <build>
         <sourceDirectory>src/main/scala</sourceDirectory>

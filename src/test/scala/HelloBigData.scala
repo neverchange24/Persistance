@@ -1,3 +1,4 @@
+import org.apache.log4j._
 import scala.collection.mutable._
 
   object HelloBigData {
@@ -7,6 +8,9 @@ import scala.collection.mutable._
     private val une_var_imm : String = "Formation Big Data"  /* variable à portée privée */
 
     class personne (var nom: String, var prenom : String, var age: Int)
+    /*BasicConfigurator.configure()*/
+    private var trace_appli :Logger = LogManager.getLogger("Logger_console")
+
 
     def main(args: Array[String]): Unit = {
       println("Hello word: mon premier programme en scala")
@@ -24,12 +28,22 @@ import scala.collection.mutable._
       collectiontuple()
 
     }
+
     /* Ma première fonction: renvoie un résultats */
-    /* def comptage_mots (texte : String) : Int = {
+    def Comptage_mots (texte : String) : Int = {
+      trace_appli.info("demarrage de tracage de la classe")
+      trace_appli.info(s"le paramètre tracé du log4j pour cette fonction est: $texte")
+      trace_appli.warn(s"Message d'avertissement du log4j interpolation de chaines : ${10+15}")
+    if (texte.isEmpty) {
+    0
+    } else{
       texte.trim.length()
-    } */
+    }
+    }
+
     /* Syntaxe2 */
     def comptage_mots (texte : String) : Int = {
+
       return texte.trim.length()
     }
 

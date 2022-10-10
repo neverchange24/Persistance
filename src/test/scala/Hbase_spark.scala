@@ -28,11 +28,11 @@ object Hbase_spark {
       .format("org.apache.spark.sql.execution.datasources.hbase")
       .load()
 
-    df_hbase.printSchema()
-    df_hbase.show(false)
+   // df_hbase.printSchema()
+   // df_hbase.show(false)
 
     df_hbase.createOrReplaceTempView("orders")
-    ss.sql("select * from orders where state = 'MA'").show(5)
+    //ss.sql("select * from orders where state = 'MA'").show(5)
 
   }
 }
